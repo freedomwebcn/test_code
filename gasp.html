@@ -5,6 +5,69 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.3/dist/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.3/ScrollTrigger.min.js"></script>
   </head>
-  <body></body>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    body,
+    html {
+      width: 100%;
+      height: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+      overflow-y: auto;
+    }
+
+    .f-box {
+      height: 100px;
+      margin-bottom: 16px;
+      background-color: gold;
+    }
+
+    .m-box-container {
+      display: flex;
+      height: calc(100vh - 132px);
+      margin-bottom: 16px;
+    }
+
+    .m-child-box-one {
+      flex: 50%;
+      margin-right: 16px;
+      background-color: blueviolet;
+    }
+
+    .m-child-box-two {
+      flex: 50%;
+      background-color: rgb(10, 233, 40);
+    }
+
+    .b-box {
+      height: 25vh;
+      background-color: crimson;
+    }
+  </style>
+
+  <body>
+    <div class="f-box"></div>
+    <div class="m-box-container">
+      <div class="m-child-box-one item"></div>
+      <div class="m-child-box-two item"></div>
+    </div>
+    <div class="b-box"></div>
+
+    <script>
+      const items = document.querySelectorAll(".item");
+
+      let tl = gsap.timeline().from(items, {
+        xPercent: gsap.utils.wrap([-100, 100]),
+        duration: 1,
+      });
+    </script>
+  </body>
 </html>
