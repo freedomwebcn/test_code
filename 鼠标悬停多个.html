@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.11.3/dist/gsap.min.js"></script>
+  </head>
+  <style>
+    body {
+      background-color: black;
+    }
+    .item {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
+    .dot {
+      height: 20px;
+      min-width: 20px;
+      background-color: #333;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    .text {
+      color: #777;
+      font-weight: 700;
+      margin: 4px;
+      font-size: 40px;
+      white-space: nowrap;
+    }
+  </style>
+  <body>
+    <div class="item">
+      <div class="dot"></div>
+      <div class="text">HOME</div>
+    </div>
+
+    <div class="item">
+      <div class="dot"></div>
+      <div class="text">ABOUT</div>
+    </div>
+
+    <div class="item">
+      <div class="dot"></div>
+      <div class="text">PORTFOLIO</div>
+    </div>
+
+    <div class="item">
+      <div class="dot"></div>
+      <div class="text">CONTACT US</div>
+    </div>
+
+    <script>
+      const items = document.querySelectorAll(".item");
+      gsap.defaults({ duration: 0.3 });
+
+      items.forEach((item, index) => {
+        const t1 = gsap
+          .timeline({ paused: true })
+          .to(item.querySelector(".text"), {
+            color: "white",
+            x: 10,
+            scale: 1.3,
+            transformOrigin: "left center",
+          })
+          .to(
+            item.querySelector(".dot"),
+            { backgroundColor: "#F93", scale: 1.5 },
+            0
+          );
+
+        item.addEventListener("mouseenter", () => t1.play());
+        item.addEventListener("mouseleave", () => t1.reverse());
+      });
+    </script>
+  </body>
+</html>
