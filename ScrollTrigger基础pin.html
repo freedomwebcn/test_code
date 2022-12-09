@@ -133,37 +133,31 @@
       let items = document.querySelectorAll(".item");
 
       let tl = gsap.timeline({ paused: true });
-
       tl.from(".title", { y: 200, opacity: 0 });
-      tl.from(items, { duration: 0.5, xPercent: gsap.utils.wrap([-100, 100]) });
+      tl.from(items, {
+        duration: 0.5,
+        xPercent: gsap.utils.wrap([-100, 100]),
+      });
       tl.from(items, { opacity: 0, duration: 0.3 }, 0);
 
       ScrollTrigger.create({
-        trigger: ".trigger",
+        trigger: ".box2",
         start: "top 90%",
         onEnter: () => tl.play(),
         markers: true,
-
-        // toggleActions: "restart none none reverse",
       });
 
       ScrollTrigger.create({
-        trigger: ".trigger",
+        trigger: ".box2",
         start: "top 100%",
         onLeaveBack: () => tl.pause(0),
       });
 
-      //错误示例
-      // gsap.from(".test", {
-      //   y: "200",
-      //   opacity: 0,
-      //   scrollTrigger: {
-      //     trigger: ".test", //不要对触发器使用动画 例如 这里不可以用 .test 当作触发器
-      //     start: "top 95%",
-      //     markers: true,
-      //     toggleActions: "restart none none none",
-      //   },
-      // });
+      ScrollTrigger.create({
+        trigger: ".trigger",
+        start: "50% 50%",
+        pin: ".box2",
+      });
     </script>
   </body>
 </html>
