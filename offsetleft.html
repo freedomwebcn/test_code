@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .box1 {
+        position: absolute;
+        width: 100px;
+        height: 100px;
+        background-color: aqua;
+
+    }
+
+    .box2 {
+        position: absolute;
+        width: 50px;
+        height: 50px;
+        right: -15px;
+        background-color: cadetblue;
+    }
+</style>
+
+<body>
+    <div class="box1">
+        <div class="box2"></div>
+    </div>
+
+    <script>
+        const box1 = document.querySelector('.box1')
+        const box2 = document.querySelector('.box2')
+
+        console.log(box2.offsetLeft);
+    </script>
+</body>
+
+</html>

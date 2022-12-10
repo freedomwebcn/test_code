@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>00</title>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no"
+    />
+    <link rel="stylesheet" href="./font/iconfont.css" />
+    <style>
+      html,
+      body {
+        max-width: 540px;
+        height: 100%;
+        margin: 0 auto !important;
+        background: #2177b8;
+      }
+      .operate-time {
+        width: 375px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+      button {
+        /*width: 50px;*/
+        height: 20px;
+        background: red;
+      }
+
+      #pause-btn {
+        display: none;
+      }
+
+      input[type="range"] {
+        outline: none;
+        /*In FF,Some checkbox style like background-color not been supported*/
+
+        -webkit-appearance: none;
+      }
+      input[type="range"].time-range {
+        /*In FF,Some checkbox style like background-color not been supported*/
+
+        /*border: 1px solid red;*/
+        /*height: 2px;*/
+        height: 1px;
+        flex: 1;
+        margin: 0 5px;
+
+        background-color: rgba(255, 255, 255, 0.4);
+      }
+
+      input[type="range"].time-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        border: 6px solid #fff;
+        height: 12px;
+        width: 12px;
+        border-radius: 8px;
+        background: #fff;
+        cursor: pointer;
+      }
+
+      .player {
+        display: flex;
+        width: 375px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .time-current {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      .time-total {
+        color: rgba(0, 0, 0, 0.2);
+      }
+      .control {
+        display: flex;
+        justify-content: space-between;
+        flex: 100%;
+        align-items: center;
+        color: #fff;
+      }
+      .control-play {
+        display: flex;
+        align-items: center;
+      }
+
+      .icon-bofang,
+      .icon-zanting {
+        margin: 0 25px;
+        font-size: 32px;
+      }
+      #random {
+        display: none;
+      }
+      #cycle {
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="player">
+      <div class="operate-time">
+        <output class="time-current">00:00</output>
+        <input type="range" value="0" class="time-range" step="0.001" max="0" />
+        <output class="time-total">00:00</output>
+      </div>
+      <div class="control">
+        <div id="order" class="iconfont icon-loop" data-play-mode="order"></div>
+        <div class="control-play">
+          <span id="pre" class="iconfont icon-shangyishoushangyige"></span>
+          <span id="btn" class="iconfont icon-bofang"></span>
+          <span id="pause-btn" class="iconfont icon-zanting"></span>
+          <span id="nex" class="iconfont icon-xiayigexiayishou"></span>
+        </div>
+        <div class="iconfont icon-24gf-playlistMusic2"></div>
+      </div>
+
+      <div id="list"></div>
+    </div>
+
+    <br />
+
+    <!-- <input class="volume-range" type="range" min="0" step="0.01" max="1"  value="0"> -->
+
+    <script src="./howler.js"></script>
+
+    <script type="text/javascript">
+      const { log } = console;
+      const playBtn = document.querySelector("#btn");
+      const pauseBtn = document.querySelector("#pause-btn");
+      const nextBtn = document.querySelector("#nex");
+      const prevBtn = document.querySelector("#pre");
+      const controlBtn = document.querySelector("#control");
+
+      const range = document.querySelector(".time-range");
+      const timeTotal = document.querySelector(".time-total");
+      const timeCurrent = document.querySelector(".time-current");
+      const volumeDom = document.querySelector(".volume-range");
+      const list = document.querySelector("#list");
+      const order = document.querySelector("#order");
+
+      // volumeDom.value = Howler.volume()
+      Howler.masterGain = true;
+      // log(GainNode.buffered)
+      class Player {
+        constructor(playlist) {
+          this.playlist = playlist;
+          this.index = 0;
+          // 动态渲染播放列表
+          playlist.forEach(function (song, index) {
+            var div = document.createElement("div");
+            div.className = "list-song";
+            div.innerHTML = song.title;
+            div.setAttribute("data-index", index);
+            list.appendChild(div);
+          });
+        }
+
+        play(index) {
+          let sound;
+          let duration;
+          index = typeof index === "number" ? index : this.index;
+          var data = this.playlist[index];
+          if (data.howl) {
+            sound = data.howl;
+          } else {
+            sound = data.howl = new Howl({
+              src: [data.file],
+                html5: true,     //开启html5
+
+              onload: function () {
+                log("onload");
+              },
+              // 当音频播放时触发
+              onplay: () => {
+                duration = sound.duration();
+                range.max = duration;
+                timeTotal.textContent = formatTime(duration);
+                Array.from(list.children).forEach((item, index) => {
+                  item.style.backgroundColor = "";
+                });
+                list.children[this.index].style.backgroundColor = "orange";
+                playBtn.style.display = "none";
+                pauseBtn.style.display = "inline-block";
+                requestAnimationFrame(this.step.bind(this));
+              },
+              // 当点击或拖动进度条时触发
+              onseek: function () {
+                timeCurrent.textContent = formatTime(this.seek());
+              },
+              onend: () => {
+                if (order.getAttribute("data-play-mode") === "loop") {
+                  this.skipTo(this.index);
+                  return;
+                }
+
+                if (order.getAttribute("data-play-mode") === "shuffle") {
+                  const randomIndex = this.shuffle();
+                  this.skipTo(randomIndex);
+                  return;
+                }
+                this.skip("next");
+              },
+            });
+          }
+          sound.play();
+          this.index = index;
+        }
+
+        step() {
+
+            console.log(66);
+          // Get the Howl we want to manipulate.
+          var sound = this.playlist[this.index].howl;
+
+          console.log(sound);
+
+          let playing = sound.playing();
+          // 判断播放状态，如果停止播放 直接return
+          if (!playing) {
+            playBtn.style.display = "inline-block";
+            pauseBtn.style.display = "none";
+            return;
+          }
+        //   console.log("step", playing);
+          let seek = sound.seek();
+          timeCurrent.textContent = formatTime(seek);
+          // 实时显示当前进度条位置
+          range.value = seek;
+          requestAnimationFrame(this.step.bind(this));
+        }
+
+        seek(value) {
+          let sound = this.playlist[this.index].howl;
+          if (value) {
+            sound.seek(value);
+          }
+        }
+
+        volume(val) {
+          Howler.volume(val);
+        }
+
+        pause() {
+          // Get the Howl we want to manipulate.
+          var sound = this.playlist[this.index].howl;
+          // Puase the sound.
+          sound.pause();
+          // Show the play button.
+          playBtn.style.display = "inline-block";
+          pauseBtn.style.display = "none";
+        }
+
+        skip(direction) {
+          // Get the next track based on the direction of the track.
+          var index = 0;
+          if (direction === "prev") {
+            index = this.index - 1;
+            if (index < 0) {
+              index = this.playlist.length - 1;
+            }
+          } else {
+            index = this.index + 1;
+            if (index >= this.playlist.length) {
+              index = 0;
+            }
+          }
+          this.skipTo(index);
+        }
+
+        skipTo(index) {
+          // Stop the current track. 停止当前正在播放的音乐
+          if (this.playlist[this.index].howl) {
+            this.playlist[this.index].howl.stop();
+          }
+          // Play the new track.
+          this.play(index);
+        }
+
+        // 随机播放
+        shuffle() {
+          let arrIndexFilter = [];
+          this.playlist.forEach((obj, i) => {
+            if (i !== this.index) {
+              arrIndexFilter.push(i);
+            }
+          });
+          let indexRandNext =
+            arrIndexFilter[Math.floor(Math.random() * arrIndexFilter.length)];
+          return indexRandNext;
+        }
+      }
+
+      let dataList = [
+        {
+          title: "测试",
+          file: "./01.mp3",
+          howl: null,
+        },
+        // {
+        //   title: "02",
+        //   file: "02",
+        //   howl: null,
+        // },
+        // {
+        //   title: "03",
+        //   file: "03",
+        //   howl: null,
+        // },
+      ];
+
+      const player = new Player(dataList);
+
+      // 播放
+      playBtn.addEventListener("click", function () {
+        player.play();
+      });
+      // 暂停
+      pauseBtn.addEventListener("click", function () {
+        player.pause();
+      });
+      nextBtn.addEventListener("click", function () {
+        player.skip("next");
+      });
+
+      prevBtn.addEventListener("click", function () {
+        player.skip("prev");
+      });
+
+      list.addEventListener("click", function (event) {
+        const dataIndex = event.target.getAttribute("data-index") * 1;
+        player.skipTo(dataIndex);
+      });
+
+      //  移动音量滑杆
+      // volumeDom.addEventListener("input",(event)=>{
+      //     let target = event.target;
+      //     // 设置音量
+      //     player.volume(target.value)
+      // })
+      range.addEventListener("input", (event) => {
+
+        let target = event.target;
+
+        console.log(target.value);
+        // 设置音频播放进度
+        player.seek(target.value);
+      });
+
+      // '顺序','随机','循环'
+      const arr = [
+        {
+          ico: "icon-loop",
+          attrText: "order",
+        },
+        {
+          ico: "icon-suijisenlin",
+          attrText: "shuffle",
+        },
+        {
+          ico: "icon-24gl-repeatOnce2",
+          attrText: "loop",
+        },
+      ];
+      let index = 1;
+
+      order.addEventListener("click", function () {
+        if (index > arr.length - 1) {
+          index = 0;
+        }
+        order.setAttribute("data-play-mode", arr[index].attrText);
+        order.className = "";
+        order.className = "iconfont " + arr[index].ico;
+        index++;
+      });
+
+      // log(moment(326000).format("mm:ss"))
+      function formatTime(value) {
+        // log(value)
+        const secs = Math.round(value);
+        var minutes = Math.floor(secs / 60) || 0;
+        var seconds = secs - minutes * 60 || 0;
+        return (
+          String(minutes).padStart(2, "0") +
+          ":" +
+          String(seconds).padStart(2, "0")
+        );
+      }
+    </script>
+  </body>
+</html>

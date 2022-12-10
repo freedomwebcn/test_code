@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+
+  <script src="https://unpkg.com/dayjs@1.8.21/dayjs.min.js"></script>
+</head>
+
+<style>
+  /* * {
+      padding: 0;
+      margin: 0;
+    } */
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  html,
+  body {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  .myPlayer {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    padding: 5%;
+    border: 1px solid #333;
+  }
+
+  .prograss-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    height: 2px;
+    margin: 0 28px;
+    background-color: rgb(205, 205, 205);
+    border-radius: 16px;
+    position: relative;
+  }
+
+  .prograss {
+    position: absolute;
+
+    height: 2px;
+    width: 0%;
+    display: flex;
+    align-items: center;
+    background-color: rgb(255, 78, 78);
+  }
+
+  .prograss i {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    background-color: rgb(236, 65, 65);
+    border-radius: 50%;
+    right: -12px;
+    cursor: pointer;
+  }
+
+  .btnBox {
+    flex: 100%;
+    display: flex;
+    padding: 20px;
+    justify-content: space-between;
+  }
+</style>
+
+<body>
+  <div class="myPlayer">
+    <span class="durtion-time">00:00</span>
+    <div class="prograss-box">
+      <div class="prograss">
+        <i class="circle"></i>
+      </div>
+    </div>
+    <span class="total-time">00:00</span>
+
+    <div class="btnBox">
+      <button class="playBtn">play</button>
+      <button class="pauseBtn">pause</button>
+    </div>
+  </div>
+
+  <audio src="./01.mp3" id="myAudio"></audio>
+
+  <script src="./howler.js"></script>
+
+  <script>
+    const myAudio = document.querySelector("#myAudio");
+    const durtionTime = document.querySelector(".durtion-time");
+    const totalTime = document.querySelector(".total-time");
+    const prograssBox = document.querySelector(".prograss-box");
+    const prograss = document.querySelector(".prograss");
+    const myPlayer = document.querySelector(".myPlayer");
+    const circle = document.querySelector(".circle");
+
+    myAudio.addEventListener("timeupdate", (event) => {
+      var time = parseInt(myAudio.currentTime);
+      durtionTime.innerHTML = changeTime(time);
+      totalTime.innerHTML = dayjs.unix(myAudio.duration).format("mm:ss");
+      prograss.style.width = (myAudio.currentTime / myAudio.duration) * 100 + "%";
+    });
+
+    const playBtn = document.querySelector(".playBtn");
+    const pauseBtn = document.querySelector(".pauseBtn");
+
+    var barleft = 0;
+    circle.onmousedown = function () {
+      var event = event || window.event;
+      var leftVal = event.clientX - this.offsetLeft;
+      console.log(event.clientX,this.offsetLeft);
+      var that = this;
+      document.onmousemove = function (event) {
+        var event = event || window.event;
+        barleft = event.clientX - leftVal;
+        if (barleft < 0) {
+          barleft = 0;
+        } else if (barleft > prograssBox.offsetWidth - circle.offsetWidth) {
+          barleft = prograssBox.offsetWidth - circle.offsetWidth;
+         
+          // ptxt.innerHTML = "已经走了" + parseInt(barleft/(scroll.offsetWidth-bar.offsetWidth) * 100) + "%";
+        }
+        prograss.style.width = barleft + "px";
+        const dt = parseInt(myAudio.duration)
+        const currentTime = dt * parseInt(barleft / (prograssBox.offsetWidth - circle.offsetWidth) * 100) / 100;
+        durtionTime.innerHTML = changeTime(currentTime);
+        //防止选择内容--当拖动鼠标过快时候，弹起鼠标，bar也会移动，修复bug
+        window.getSelection ? window.getSelection().removeAllRanges() : document.selection.empty();
+      };
+    };
+
+    document.onmouseup = function () {
+      document.onmousemove = null; //弹起鼠标不做任何操作
+    };
+    playBtn.addEventListener("click", () => {
+      myAudio.play();
+    });
+
+    pauseBtn.addEventListener("click", () => {
+      myAudio.pause();
+    });
+
+    function changeTime(time) {
+      var minute = parseInt(time / 60);
+      if (minute < 10) {
+        minute = "0" + minute;
+      }
+      var secound = parseInt(time % 60);
+      if (secound < 10) {
+        secound = "0" + secound;
+      }
+      return minute + ":" + secound;
+    }
+  </script>
+</body>
+
+</html>
