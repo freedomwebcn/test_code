@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+</head>
+
+<link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" />
+<script src="https://cdn.plyr.io/3.7.3/plyr.polyfilled.js"></script>
+
+<style>
+    :root {
+        /* --plyr-progress-loading-background:red; */
+        /* --plyr-audio-progress-buffered-background:red; */
+
+        --plyr-range-fill-background: red;
+        --plyr-range-track-height: 2px;
+    }
+
+
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+    }
+
+    .plyrAudio {
+        padding: 50px;
+
+    }
+
+    .container {
+        width: 100%;
+    }
+
+    .plyr__controls {
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .plyr__time--current {
+        margin-right: 8px;
+    }
+
+    .plyr__time--duration {
+        margin-left: 8px;
+    }
+
+    .plyr__progress {
+        flex: 1;
+    }
+
+    .controls__footer {
+        flex: 100%;
+        display: flex;
+        justify-content: center ;
+    }
+</style>
+
+<body>
+    <div class="plyrAudio">
+        <div class="container">
+            <audio>
+                <source
+                    src="http://m801.music.126.net/20221211174121/fefa6a11e1654eed84e096f103157b62/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/22942752898/0f9e/aa8e/e71f/94c7a5a6b2a8187bb7358556f63c6a90.flac"
+                    type="audio/flac">
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        const controls = `
+        <div class="plyr__controls">
+
+            <div class="plyr__time plyr__time--current" aria-label="Current time">00:00</div>
+            <div class="plyr__progress">
+                <input data-plyr="seek" type="range" min="0" max="100" step="0.01" value="0" aria-label="Seek">
+                <progress class="plyr__progress__buffer" min="0" max="100" value="0">% buffered</progress>
+               
+            </div>
+            <div class="plyr__time plyr__time--duration" aria-label="Duration">00:00</div>
+    
+            <div class="controls__footer">
+                <button type="button" class="plyr__control" aria-label="Play, {title}" data-plyr="play">
+                    <svg class="icon--pressed" role="presentation">
+                        <use xlink:href="#plyr-pause"></use>
+                    </svg>
+                    <svg class="icon--not-pressed" role="presentation">
+                        <use xlink:href="#plyr-play"></use>
+                    </svg>
+                
+                </button>
+
+                   <button type="button" class="plyr__control" aria-label="Mute" data-plyr="mute">
+                       <svg class="icon--pressed" role="presentation">
+                           <use xlink:href="#plyr-muted"></use>
+                       </svg>
+                       <svg class="icon--not-pressed" role="presentation">
+                           <use xlink:href="#plyr-volume"></use>
+                       </svg>
+                   </button>
+                   <div class="plyr__volume">
+                       <input data-plyr="volume" type="range" min="0" max="1" step="0.05" value="1" autocomplete="off" aria-label="Volume">
+                   </div>
+            </div>
+
+        </div>
+        `;
+
+
+        const player = new Plyr('audio', {
+            controls
+        });
+
+        window.onload = function () {
+       
+        }
+
+ 
+
+        // Expose player so it can be used from the console
+        window.player = player;
+    </script>
+</body>
+
+</html>
