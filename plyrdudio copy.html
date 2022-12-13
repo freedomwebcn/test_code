@@ -5,21 +5,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="./source/favicon.png" />
-
     <title>Document</title>
 
 </head>
-<!-- <link rel="stylesheet" href="//at.alicdn.com/t/c/font_3821094_o7gmskgypu.css"> -->
-<link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_3821094_o7gmskgypu.css">
 <link rel="stylesheet" href="https://cdn.plyr.io/3.7.3/plyr.css" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css?family=Reem+Kufi" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC&display=swap" rel="stylesheet">
-
-
 
 
 <style>
@@ -42,27 +32,29 @@
         width: 100%;
         height: 100%;
         overflow: hidden;
-        background-color: #fff;
+        background-color: #121212;
 
     }
 
-    .playerUi {
+    .plyrAudio {
+        padding: 50px;
+    }
+
+    .cover-img-container {
         position: relative;
         display: flex;
         justify-content: center;
         width: 300px;
-        height: 566px;
+        height: 500px;
         background-color: white;
         min-width: 200px;
         overflow: hidden;
         margin: 58px auto;
         border-radius: 5px;
-        user-select: none;
-        box-shadow: 0px 8px 28px -9px rgb(0 0 0 / 45%);
     }
 
 
-    .playerUi .wave {
+    .cover-img-container .wave {
         position: absolute;
         height: 750px;
         width: 750px;
@@ -70,7 +62,7 @@
         left: 0;
         top: 0;
         margin-left: -72%;
-        margin-top: -131%;
+        margin-top: -97%;
         border-radius: 40%;
         background: radial-gradient(#353535, #383737);
     }
@@ -109,7 +101,7 @@
 
 
 
-    .playerUi .image {
+    .cover-img-container .image {
         background:
             url('http://static1.squarespace.com/static/530b728de4b04fc9b23a5988/t/569880381a5203aa7d44c1a8/1452834873397/00.jpg?format=1000w') no-repeat 75%;
         background-size: cover;
@@ -120,7 +112,7 @@
         width: 300px;
     }
 
-    .playerUi .image::after {
+    .cover-img-container .image::after {
         height: 100px;
         content: '';
         top: 200px;
@@ -144,8 +136,8 @@
 
     .container {
         width: 100%;
-        position: absolute;
-        bottom: 0;
+        max-width: 100%;
+        min-width: 200px;
     }
 
 
@@ -155,7 +147,6 @@
         height: 34px;
         width: 50%;
         display: flex;
-        margin-left: 16px;
     }
 
     .s-name {
@@ -165,14 +156,18 @@
         line-height: 34px;
         white-space: nowrap;
         margin-left: 10px;
-        font-size: 16px;
-        font-family: 'Reem Kufi', 'Noto Sans SC', sans-serif;
-        color: #4b4a4a;
+
+
+
     }
 
     .name {
+        font-size: 12px;
+        color: white;
+        font-size: 13px;
         padding-right: 20px;
-        letter-spacing: 1px;
+
+
     }
 
     .text {
@@ -184,7 +179,7 @@
         height: 100%;
         width: 21px;
         z-index: -1;
-        background-image: linear-gradient(-90deg, transparent 0%, #fff 69%);
+        background-image: linear-gradient(-90deg, transparent 0%, #121212 69%);
     }
 
     .s-name-box .r-bg {
@@ -194,7 +189,7 @@
         height: 100%;
         width: 21px;
         z-index: 9;
-        background-image: linear-gradient(90deg, transparent 0%, #fff 60%);
+        background-image: linear-gradient(90deg, transparent 0%, #121212 60%);
     }
 
     @keyframes move {
@@ -212,18 +207,12 @@
         width: 100%;
         flex-wrap: wrap;
         /* padding: 0 !important; */
-        /* background-color: #121212 !important; */
+        background-color: #121212 !important;
     }
 
-
-
-    .plyr__time {
-        display: block !important;
-        font-family: 'Noto Sans SC', sans-serif;
-
+    .plyr__time--current {
+        margin-right: 8px;
     }
-
-    .plyr__time--current {}
 
     .plyr__time--duration {
         margin-left: 8px;
@@ -239,44 +228,73 @@
         justify-content: center;
         align-items: center;
         position: relative;
-        padding: 10px 0 10px 0;
+        padding: 50px 0 0 0;
     }
 
-
-    .button {
-        font-size: 40px;
-
+    .prevBtn,
+    .playBtn,
+    .nextBtn {
+        color: #fff;
+        font-size: 18px;
         cursor: pointer;
-        transition: 0.5s;
+        opacity: .8;
     }
 
-    .button:active {
-        opacity: 0.75;
-        transform: scale(0.75);
+    .prevBtn:hover {
+        opacity: 1
+    }
+
+    .playBtn:hover {
+        opacity: 1
+    }
+
+    .nextBtn:hover {
+        opacity: 1
+    }
+
+    .prevBtn {
+        width: 19px;
+        height: 20px;
+        background: url(./source/player.png);
+        background-position: 0 -30px;
     }
 
     .playBtn {
-        /* opacity: .8; */
         margin: 0 80px;
-        font-size: 50px;
+        width: 21px;
+        height: 29px;
+        background: url(./source/player.png);
+
     }
 
-    .btn_icon-play-pause {
+    .btn_bg-play-pause {
         background-position: -30px 0;
     }
+
+
 
     .plyr__time {
         color: rgb(179, 179, 179) !important;
     }
+
+    .nextBtn {
+        width: 19px;
+        height: 20px;
+        background: url(./source/player.png) no-repeat;
+        background-position: 0 -52px;
+
+    }
 </style>
 
 <body>
-    <div class="playerUi">
+    <div class="plyrAudio">
+        <div class="cover-img-container">
 
-        <div class="image"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
-        <div class="wave"></div>
+            <div class="image"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
         <div class="container">
             <div class="s-name-box">
                 <i class="l-bg"></i>
@@ -291,22 +309,21 @@
         </div>
     </div>
 
-
-
     <script src="https://cdn.plyr.io/3.7.3/plyr.polyfilled.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
-        integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
         const controls = `
         <div class="plyr__controls">
             <div class="plyr__time plyr__time--current" aria-label="Current time">00:00</div>
+            <div class="plyr__progress">
+                <input data-plyr="seek" type="range" min="0" max="100" step="0.01" value="0" aria-label="Seek">
+                <progress class="plyr__progress__buffer" min="0" max="100" value="0">% buffered</progress>
+            </div>
             <div class="plyr__time plyr__time--duration" aria-label="Duration">00:00</div>
             <div class="controls__footer">
-                    <span class="prevBtn button zmdi zmdi-skip-previous"></span>
-                    <span class="playBtn button zmdi zmdi-play-circle"></span>
-                    <span class="nextBtn button zmdi zmdi-skip-next"></span>
+                    <span class="prevBtn"></span>
+                    <span class="playBtn"></span>
+                    <span class="nextBtn"></span>
             </div>
         </div>
         `;
@@ -319,9 +336,9 @@
 
         }, {
             id: 2,
-            src: "https://soundbible.com/mp3/airplane-takeoff_daniel_simion.mp3",
+            src: "https://soundbible.com/mp3/service-bell_daniel_simion.mp3",
             type: 'audio/mp3',
-            name: "Airplane Takeoff - Daniel Simion"
+            name: "Service Bell - Daniel Simion"
 
         }, {
             id: 3,
@@ -346,35 +363,28 @@
             const playBtn = document.querySelector('.playBtn')
             const prevBtn = document.querySelector('.prevBtn')
             const nextBtn = document.querySelector('.nextBtn')
-            const playerUi = document.querySelector('.playerUi')
+            const progress = document.querySelector('progress')
 
-            const prevPlayThrottled = _.throttle(prevPlay, 500, {
-                'trailing': false
-            });
-
-            const nextPlayThrottled = _.throttle(nextPlay, 500, {
-                'trailing': false
-            });
+            const coverImgContainer = document.querySelector('.cover-img-container')
 
             playBtn.addEventListener('click', () => {
                 player.togglePlay()
             })
 
-            prevBtn.addEventListener('click', prevPlayThrottled)
-
-            function prevPlay() {
+            prevBtn.addEventListener('click', () => {
+                progress.value = 0
                 if (index <= 0) {
                     index = trackCount
                 }
                 index--;
                 loadTrack(index);
                 playing && player.play();
-            }
+            })
 
-            nextBtn.addEventListener('click', nextPlayThrottled)
+            nextBtn.addEventListener('click', nextPlay)
 
             function nextPlay() {
-                console.log("next...");
+                progress.value = 0
                 if ((index + 1) < trackCount) {
                     index++;
                 } else {
@@ -394,26 +404,17 @@
             audio.addEventListener('play', () => {
                 console.log('playing...');
                 playing = true
-                removeClass(playBtn, 'zmdi-play-circle')
-                addClass(playBtn, 'zmdi-pause-circle')
-                addClass(playerUi, 'playing')
+                playBtn.classList.add('btn_bg-play-pause')
+                coverImgContainer.classList.add('playing')
             })
 
             audio.addEventListener('pause', () => {
                 console.log('paused...');
-                removeClass(playBtn, 'zmdi-pause-circle')
-                addClass(playBtn, 'zmdi-play-circle')
-                removeClass(playerUi, 'playing')
+                playBtn.classList.remove('btn_bg-play-pause')
+                coverImgContainer.classList.remove('playing')
+
 
             })
-
-            function removeClass(node, className) {
-                node.classList.remove(className)
-            }
-
-            function addClass(node, className) {
-                node.classList.add(className)
-            }
 
             audio.addEventListener('ended', () => {
                 console.log('ended', playing);
