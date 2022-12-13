@@ -15,35 +15,107 @@
 <style>
     :root {
         /* --plyr-progress-loading-background:red; */
-        /* --plyr-audio-progress-buffered-background:red; */
+        --plyr-audio-progress-buffered-background: rgba(255, 255, 255, .3);
 
         --plyr-range-fill-background: red;
         --plyr-range-track-height: 2px;
     }
 
-
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
 
     html,
     body {
         width: 100%;
         height: 100%;
         overflow: hidden;
+        background-color: #121212;
 
     }
 
     .plyrAudio {
         padding: 50px;
-
     }
 
     .container {
         width: 100%;
+        max-width: 100%;
+        min-width: 200px;
+    }
+
+
+    .s-name-box {
+        position: relative;
+        overflow: hidden;
+        height: 34px;
+        width: 50%;
+        display: flex;
+    }
+
+    .s-name {
+        display: flex;
+        height: 34px;
+        width: auto;
+        line-height: 34px;
+        white-space: nowrap;
+        margin-left: 10px;
+
+
+
+    }
+
+    .name {
+        font-size: 12px;
+        color: white;
+        font-size: 13px;
+        padding-right: 20px;
+
+
+    }
+
+    .text {
+        width: auto;
+    }
+
+    .s-name-box i {
+        position: absolute;
+        height: 100%;
+        width: 21px;
+        z-index: -1;
+
+        background-image: linear-gradient(-90deg, transparent 0%, #121212 69%);
+    }
+
+    .s-name-box::after {
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 34px;
+        z-index: 9;
+        background-image: linear-gradient(90deg, transparent 0%, #121212 60%);
+    }
+
+    @keyframes move {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(-50%);
+        }
     }
 
     .plyr__controls {
         display: flex;
         width: 100%;
         flex-wrap: wrap;
+        /* padding: 0 !important; */
+        background-color: #121212 !important;
     }
 
     .plyr__time--current {
@@ -68,6 +140,7 @@
     .prevBtn,
     .playBtn,
     .nextBtn {
+        color: #fff;
         font-size: 18px;
         cursor: pointer;
     }
@@ -76,14 +149,24 @@
         margin: 0 10px;
     }
 
+    .plyr__time {
+        color: rgb(179, 179, 179) !important;
+    }
+
     .nextBtn {}
 </style>
 
 <body>
     <div class="plyrAudio">
         <div class="container">
+            <div class="s-name-box">
+                <i class="l-bg"></i>
+                <div class="s-name">
+                    <span class="name text"></span>
+                    <span class="name"></span>
+                </div>
+            </div>
             <audio id="audio">
-
             </audio>
         </div>
     </div>
@@ -93,46 +176,48 @@
     <script>
         const controls = `
         <div class="plyr__controls">
-
             <div class="plyr__time plyr__time--current" aria-label="Current time">00:00</div>
             <div class="plyr__progress">
                 <input data-plyr="seek" type="range" min="0" max="100" step="0.01" value="0" aria-label="Seek">
                 <progress class="plyr__progress__buffer" min="0" max="100" value="0">% buffered</progress>
-               
             </div>
             <div class="plyr__time plyr__time--duration" aria-label="Duration">00:00</div>
-    
             <div class="controls__footer">
                     <span class="prevBtn iconfont icon-xiajiantou"></span>
-
                     <span class="playBtn iconfont  icon-xiajiantou-copy-copy"></span>
-
                     <span class="nextBtn iconfont icon-xiajiantou-copy-copy"></span>
-
-                 
             </div>
-
         </div>
         `;
-
+        
         const tracks = [{
-                id: 1,
-                src: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/Lecrae_-_Anomaly_(Lyric_Video).mp3",
-                type: 'audio/mp3'
-            }, {
-                id: 2,
-                src: "https://mdn.github.io/learning-area/html/multimedia-and-embedding/video-and-audio-content/viper.mp3",
-                type: 'audio/mp3'
-            }
+            id: 1,
+            src: "https://s3-us-west-2.amazonaws.com/s.cdpn.io/242518/Lecrae_-_Anomaly_(Lyric_Video).mp3",
+            type: 'audio/mp3',
+            name: "Lecrae - Anomaly"
 
-        ]
+        }, {
+            id: 2,
+            src: "https://raw.githubusercontent.com/freedomwebcn/test_code/main/source/%E8%8B%8F%E8%81%94%E5%9B%BD%E6%AD%8C.mp3",
+            type: 'audio/mp3',
+            name: "Государственный гимн СССР - 俄罗斯军队模范亚历山德罗夫红旗歌舞团"
 
+        }, {
+            id: 3,
+            src: "https://raw.githubusercontent.com/freedomwebcn/test_code/main/source/%E7%A5%9E%E5%9C%A3%E7%9A%84%E6%88%98%E4%BA%89.mp3",
+            type: 'audio/mp3',
+            name: "Священная война - 和客户记号记号记号记号记号记号记号记号很久很久"
+        }]
+        
         window.onload = function () {
+            const sName = document.querySelector('.s-name')
+            const name = document.querySelectorAll('.name')
+            const sNameBox = document.querySelector('.s-name-box')
+            const leftBg = document.querySelector('.l-bg')
             const player = new Plyr('audio', {
                 controls
             });
             const audio = document.querySelector('#audio')
-            const source = document.querySelector('source')
             let index = 0,
                 playing = false
             const trackCount = tracks.length
@@ -150,7 +235,6 @@
                 playBtn.classList.remove('icon-xiajiantou-copy-copy')
                 playBtn.classList.add('icon-zanting')
                 player.play()
-
             })
 
             prevBtn.addEventListener('click', () => {
@@ -160,7 +244,6 @@
                 index--;
                 loadTrack(index);
                 playing && player.play();
-
             })
 
             nextBtn.addEventListener('click', () => {
@@ -175,6 +258,8 @@
 
             function loadTrack(id) {
                 audio.src = tracks[id].src;
+                name[0].innerHTML = tracks[id].name
+                isAddAnimation(id)
             }
             audio.addEventListener('play', () => {
                 console.log('playing...');
@@ -184,15 +269,26 @@
                 console.log('paused...');
                 playing = false
             })
-            loadTrack(index)
-            window.player = player;
 
+            loadTrack(index)
+
+            function isAddAnimation(id) {
+                const sNameBox = document.querySelector('.s-name-box')
+                const text = document.querySelector('.text')
+                // 清除上一个动画
+                sName.style.animation = ``;
+                name[1].innerHTML = ``;
+                leftBg.style.zIndex = -1;
+                if (text.clientWidth < sNameBox.clientWidth) return;
+                name[1].innerHTML = tracks[id].name;
+                setTimeout(() => {
+                    leftBg.style.zIndex = 6;
+                    sName.style.animation = `move linear 10s infinite`;
+                }, 1000)
+            }
 
         }
-
-
-
-        // Expose player so it can be used from the console
+        
     </script>
 </body>
 

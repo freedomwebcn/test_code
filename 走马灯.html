@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+        <style>
+
+            *{
+                margin: 0;padding: 0;
+            }
+            .item {
+                width: 500px;
+                height: 30px;
+                display: flex;
+                background-color: #ccc;
+                overflow: hidden;
+                position: relative;
+                margin-bottom: 10px;
+            }
+
+            .text {
+                width: auto;
+            }
+
+            p {
+                width: auto;
+                padding: 0;
+                margin: 0;
+                height: 30px;
+                line-height: 30px;
+                white-space: nowrap;
+                display: flex;
+            }
+
+            p:hover {
+                animation-play-state: paused;
+            }
+
+            @keyframes move {
+                0% {
+                    transform: translateX(0);
+                }
+
+                100% {
+                    transform: translateX(-50%);
+                }
+            }
+
+            span {
+                padding-right: 100px;
+            }
+        </style>
+ 
+    
+</head>
+<body>
+    <ul id="app">
+        <li class="item">
+            <p>
+                <span class="text">----Государственный гимн СССР - 俄罗斯军队模范亚历山德罗夫红旗歌舞团---------</span>
+                <span class="temp">----Государственный гимн СССР - 俄罗斯军队模范亚历山德罗夫红旗歌舞团---------</span>
+            </p>
+        </li>
+   
+    </ul>
+
+    <script>
+ 
+            // 1s 20px
+            const item = document.querySelectorAll('#app .item')[0]
+            const itemW = item.clientWidth
+            const text = document.querySelectorAll('.text')
+            const ps = document.querySelectorAll('p')
+            text.forEach((t, i) => {
+                const tw = t.clientWidth
+                if (tw > itemW) {
+                    const sec = (tw - itemW) / 20
+                    ps[i].style.animation = `move linear ${sec}s infinite`
+                }
+            })
+        </script>
+
+ 
+
+</body>
+</html>
