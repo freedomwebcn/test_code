@@ -53,7 +53,6 @@
         width: 300px;
         height: 566px;
         background-color: white;
-        min-width: 200px;
         overflow: hidden;
         margin: 58px auto;
         border-radius: 5px;
@@ -211,19 +210,12 @@
         display: flex;
         width: 100%;
         flex-wrap: wrap;
-        /* padding: 0 !important; */
-        /* background-color: #121212 !important; */
     }
-
-
 
     .plyr__time {
         display: block !important;
         font-family: 'Noto Sans SC', sans-serif;
-
     }
-
-    .plyr__time--current {}
 
     .plyr__time--duration {
         margin-left: 8px;
@@ -242,10 +234,8 @@
         padding: 10px 0 10px 0;
     }
 
-
     .button {
         font-size: 40px;
-
         cursor: pointer;
         transition: 0.5s;
     }
@@ -256,13 +246,8 @@
     }
 
     .playBtn {
-        /* opacity: .8; */
         margin: 0 80px;
         font-size: 50px;
-    }
-
-    .btn_icon-play-pause {
-        background-position: -30px 0;
     }
 
     .plyr__time {
@@ -272,7 +257,6 @@
 
 <body>
     <div class="playerUi">
-
         <div class="image"></div>
         <div class="wave"></div>
         <div class="wave"></div>
@@ -290,8 +274,6 @@
             </audio>
         </div>
     </div>
-
-
 
     <script src="https://cdn.plyr.io/3.7.3/plyr.polyfilled.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
@@ -356,9 +338,7 @@
                 'trailing': false
             });
 
-            playBtn.addEventListener('click', () => {
-                player.togglePlay()
-            })
+            playBtn.addEventListener('click', () => player.togglePlay())
 
             prevBtn.addEventListener('click', prevPlayThrottled)
 
@@ -404,7 +384,11 @@
                 removeClass(playBtn, 'zmdi-pause-circle')
                 addClass(playBtn, 'zmdi-play-circle')
                 removeClass(playerUi, 'playing')
+            })
 
+            audio.addEventListener('error', () => {
+                console.log('play error...');
+                alert('play err')
             })
 
             function removeClass(node, className) {
