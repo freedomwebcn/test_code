@@ -45,7 +45,7 @@
         background-color: #fff;
 
     }
-/* ce'hsi */
+
     .playerUi {
         position: relative;
         display: flex;
@@ -228,11 +228,13 @@
     .controls__footer {
         flex: 100%;
         display: flex;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
         position: relative;
-        padding: 10px 0 10px 0;
+        padding: 10px;
     }
+
+    .play_mode {}
 
     .button {
         font-size: 40px;
@@ -246,7 +248,7 @@
     }
 
     .playBtn {
-        margin: 0 80px;
+        /* margin: 0 80px; */
         font-size: 50px;
     }
 
@@ -275,7 +277,7 @@
         </div>
     </div>
 
-    <script src="https://cdn.plyr.io/3.7.3/plyr.js"></script>
+    <script src="https://cdn.plyr.io/3.7.3/plyr.polyfilled.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
         integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -313,7 +315,6 @@
         }]
 
         window.onload = function () {
-            debugger
             const player = new Plyr('audio', {
                 controls
             });
