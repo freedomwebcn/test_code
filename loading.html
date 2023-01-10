@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+
+
+</head>
+
+<style>
+    .btn {
+        width: 50px;
+        height: 20px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #154EC1;
+    }
+
+    .va-button__loader {
+        width: 16px;
+        height: 16px;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+
+    }
+
+    .va-progress-circle__wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        margin: auto;
+        transform: rotate(-90deg);
+        width: var(--va-progress-circle-width);
+        height: var(--va-progress-circle-height);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        animation: va-progress-circle__wrapper--indeterminate 2s linear infinite;
+    }
+
+
+
+    .va-progress-circle__overlay {
+        animation: va-progress-circle__overlay--indeterminate 2s ease-in-out infinite;
+        transition: all ease 2s;
+    }
+
+    @keyframes va-progress-circle__wrapper--indeterminate {
+        to {
+            transform: rotate(270deg)
+        }
+    }
+
+    @keyframes va-progress-circle__overlay--indeterminate {
+        0% {
+            stroke-dasharray: 1, 125;
+            stroke-dashoffset: 0
+        }
+
+        50% {
+            stroke-dasharray: 125, 125;
+            stroke-dashoffset: -65px
+        }
+
+        to {
+            stroke-dasharray: 125, 125;
+            stroke-dashoffset: -125px
+        }
+    }
+</style>
+
+<body>
+
+    <div class="btn">
+        <div class="va-progress-circle va-progress-circle--indeterminate va-button__loader"
+            style="width: 16px; height: 16px;">
+            <svg class="va-progress-circle__wrapper" viewBox="0 0 40 40">
+                <circle class="va-progress-circle__overlay" cx="50%" cy="50%" r="18.5" fill="none" stroke="#FFFFFF"
+                    stroke-width="7.5%" stroke-dasharray="116.23892818282235" stroke-dashoffset="116.23892818282235">
+                </circle>
+            </svg>
+        </div>
+    </div>
+
+</body>
+
+</html>
