@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #square {
+            display: none;
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            background: red;
+        }
+
+        ul {
+            display: inline-block;
+            list-style: none;
+        }
+
+        ul li {
+            width: 200px;
+            height: 200px;
+        }
+
+        li:nth-child(1) {
+            background-color: aqua;
+        }
+
+        li:nth-child(2) {
+            background-color: rgb(199, 243, 6);
+        }
+
+        li:nth-child(3) {
+            background-color: rgb(238, 184, 6);
+        }
+    </style>
+</head>
+
+<body>
+    <ul id="list">
+        <li>Item 1</li>
+        <li>Item 2</li>
+        <li>Item 3</li>
+    </ul>
+
+    <div id="square"></div>
+
+    <script>
+        const listElement = document.querySelector('#list');
+        const squareElement = document.querySelector('#square');
+
+        const showSquare = (clickedItem) => {
+            const itemRect = clickedItem.getBoundingClientRect();
+            squareElement.style.left = `${itemRect.right}px`;
+            squareElement.style.top = `${itemRect.top}px`;
+            squareElement.style.display = 'block';
+        };
+
+        const hideSquare = (e) => {
+            if (!listElement.contains(e.target) && !squareElement.contains(e.target)) {
+                squareElement.style.display = 'none';
+            }
+        };
+
+        listElement.addEventListener('click', (e) => {
+            showSquare(e.target);
+        });
+
+        document.addEventListener('click', hideSquare);
+    </script>
+</body>
+
+</html>
