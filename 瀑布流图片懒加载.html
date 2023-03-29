@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no, viewport-fit=cover">
+
+    <title>瀑布流</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            margin: 0 auto;
+            position: relative;
+
+            /* opacity: 0;
+            transition: all 0.3s ease-in; */
+        }
+
+        .item {
+            float: left;
+            /* display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: 700;
+            color: aliceblue; */
+            /* width: 240px; */
+            position: absolute;
+            /* background-color: rebeccapurple; */
+            background-color: #E3E9ED;
+            border-radius: 12px;
+
+        }
+
+        @media(min-width:0px)and (max-width:320px) {
+            .item {
+                width: 150px;
+            }
+
+        }
+
+        @media(min-width:321px)and (max-width:375px) {
+            .item {
+                width: 170px;
+            }
+
+        }
+
+        @media(min-width:376px) and (max-width:550px) {
+            .item {
+                width: 180px;
+            }
+
+        }
+
+        @media(min-width:551px)and (max-width:650px) {
+            .item {
+                width: 200px;
+                /* background-color: aqua; */
+            }
+        }
+
+        @media(min-width:651px)and (max-width:900px) {
+            .item {
+                width: 210px;
+
+            }
+        }
+
+        @media(min-width:901px)and (max-width:1440px) {
+            .item {
+                width: 220px;
+            }
+        }
+
+        @media(min-width:1441px) {
+            .item {
+                width: 240px;
+
+            }
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            border-radius: 12px;
+            transition: all 0.2s ease-in;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="box">
+        <div class="item item-1" style="height:300px">
+            <img data-src="https://picsum.photos/id/1/240/300" alt="">
+        </div>
+        <div class="item item-2" style="height:200px">
+            <img data-src="https://picsum.photos/id/2/240/200" alt="">
+        </div>
+        <div class="item item-3" style="height:800px">
+            <img data-src="https://picsum.photos/id/10/240/800" alt="">
+        </div>
+        <div class="item item-4" style="height:600px">
+            <img data-src="https://picsum.photos/id/29/240/600" alt="">
+        </div>
+        <div class="item item-5" style="height:500px">
+            <img data-src="https://picsum.photos/id/28/240/500" alt="">
+        </div>
+        <div class="item item-6" style="height:700px">
+            <img data-src="https://picsum.photos/id/27/240/700" alt="">
+        </div>
+        <div class="item item-7" style="height:400px">
+            <img data-src="https://picsum.photos/id/5/240/400" alt="">
+        </div>
+        <div class="item item-8" style="height:100px">
+            <img data-src="https://picsum.photos/id/25/240/100" alt="">
+        </div>
+        <div class="item item-9" style="height:200px">
+            <img data-src="https://picsum.photos/id/26/240/200" alt="">
+        </div>
+        <div class="item item-10" style="height:300px">
+            <img data-src="https://picsum.photos/id/20/240/300" alt="">
+        </div>
+        <div class="item item-11" style="height:800px">
+            <img data-src="https://picsum.photos/id/19/240/800" alt="">
+        </div>
+        <div class="item item-12" style="height:100px">
+            <img data-src="https://picsum.photos/id/26/240/100" alt="">
+        </div>
+        <div class="item item-13" style="height:200px">
+            <img data-src="https://picsum.photos/id/30/240/200" alt="">
+        </div>
+        <div class="item item-14" style="height:300px">
+            <img data-src="https://picsum.photos/id/31/240/300" alt="">
+        </div>
+        <div class="item item-15" style="height:200px">
+            <img data-src="https://picsum.photos/id/32/240/200" alt="">
+        </div>
+        <div class="item item-16" style="height:100px">
+            <img data-src="https://picsum.photos/id/33/240/100" alt="">
+        </div>
+        <div class="item item-17" style="height:200px">
+            <img data-src="https://picsum.photos/id/34/240/200" alt="">
+        </div>
+        <div class="item item-18" style="height:500px">
+            <img data-src="https://picsum.photos/id/35/240/500" alt="">
+        </div>
+        <div class="item item-19" style="height:600px">
+            <img data-src="https://picsum.photos/id/36/240/600" alt="">
+        </div>
+        <div class="item item-20" style="height:700px">
+            <img data-src="https://picsum.photos/id/37/240/700" alt="">
+        </div>
+        <div class="item item-21" style="height:300px">
+            <img data-src="https://picsum.photos/id/38/240/200" alt="">
+        </div>
+        <div class="item item-22" style="height:100px">
+            <img data-src="https://picsum.photos/id/39/240/100" alt="">
+        </div>
+
+
+        <div class="item item-23" style="height:300px">
+            <img data-src="https://picsum.photos/id/40/240/300" alt="">
+        </div>
+        <div class="item item-24" style="height:600px">
+            <img data-src="https://picsum.photos/id/41/240/600" alt="">
+        </div>
+        <div class="item item-25" style="height:500px">
+            <img data-src="https://picsum.photos/id/42/240/500" alt="">
+        </div>
+        <div class="item item-26" style="height:100px">
+            <img data-src="https://picsum.photos/id/43/240/100" alt="">
+        </div>
+
+    </div>
+
+</body>
+<script>
+    var items = document.getElementsByClassName('item');
+    const box = document.querySelector('#box')
+    const body = document.querySelector('body')
+    const imgs = document.querySelectorAll('img')
+    
+    //用来判断bound.top<=clientHeight的函数，返回一个bool值 
+    function isIn(el) {
+        var bound = el.getBoundingClientRect();
+        var clientHeight = window.innerHeight;
+        // console.log(bound);
+        return bound.top <= clientHeight;
+    }
+    //检查图片是否在可视区内，如果不在，则加载
+    function check() {
+        //  debugger
+        Array.from(imgs).forEach(function (el) {
+            if (isIn(el)) {
+                loadImg(el);
+            }
+        })
+    }
+
+    function loadImg(el) {
+        if (!el.src) {
+            var source = el.dataset.src;
+            el.src = source;
+            el.onload = function () {
+                el.style.opacity = 1
+            }
+        }
+    }
+
+
+
+
+
+    //定义间隙10像素
+    var gap = 10;
+    //进页面执行函数
+    waterFall();
+    window.onload = function () {
+        // box.style.opacity = 1
+        check()
+        // waterFall();
+
+    }
+    window.onscroll = function () {
+        //onscroll()在滚动条滚动的时候触发
+        check();
+    }
+
+    function waterFall() {
+        //首先确定列数 = 页面的宽度 / 图片的宽度
+        var pageWidth = body.clientWidth;
+        // var itemWidth = items[0].offsetWidth;
+
+        const itemWidth = getComputedStyle(items[0]).width.toString().replace("px", "");;
+        console.log(getComputedStyle(items[0]));
+        console.log('getComputedStyle================', getComputedStyle(items[0]).width);
+        console.log('clientWidth============', items[0].clientWidth);
+        // debugger
+        var columns = parseInt(pageWidth / (itemWidth * 1 + gap));
+
+
+        // console.log(columns);
+        // console.log(pageWidth, itemWidth, columns);
+        var arr = []; //定义一个数组，用来存储元素的高度
+        // debugger
+        for (var i = 0; i < items.length; i++) {
+            if (i < columns) {
+                //满足这个条件则说明在第一行，文章里面有提到
+                items[i].style.top = 0;
+                items[i].style.left = (itemWidth * 1 + gap) * i + 'px';
+                // console.log(items[i].offsetHeight);
+                arr.push(items[i].offsetHeight);
+
+            } else {
+                //其他行，先找出最小高度列，和索引
+                //假设最小高度是第一个元素
+                var minHeight = arr[0];
+                var index = 0;
+                for (var j = 0; j < arr.length; j++) { //找出最小高度
+                    if (minHeight > arr[j]) {
+                        minHeight = arr[j];
+                        index = j;
+                    }
+                }
+
+                //设置下一行的第一个盒子的位置
+                //top值就是最小列的高度+gap
+                items[i].style.top = arr[index] + gap + 'px';
+                items[i].style.left = items[index].offsetLeft + 'px';
+
+                //修改最小列的高度
+                //最小列的高度 = 当前自己的高度 + 拼接过来的高度 + 间隙的高度
+                arr[index] = arr[index] + items[i].offsetHeight + gap;
+            }
+        }
+
+        const h = Math.max(...arr)
+        const w = columns * itemWidth * 1 + (columns - 1) * gap
+        // console.log(w, itemWidth);
+        box.style.height = h + 'px'
+        box.style.width = w + 'px'
+
+    }
+
+    //当页面尺寸发生变化时，触发函数，实现响应式
+    window.onresize = function () {
+        waterFall();
+    }
+
+    // clientWidth 处理兼容性
+    function getClient() {
+        return {
+            width: window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth,
+            height: window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+        }
+    }
+    // scrollTop兼容性处理
+    function getScrollTop() {
+        return window.pageYOffset || document.documentElement.scrollTop;
+    }
+</script>
+
+</html>

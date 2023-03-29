@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>图片瀑布流</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .grid {
+            max-width: 1400px;
+            margin: 30px auto;
+            opacity: 0;
+            transition: all 0.3 ease-in;
+            /* background-color: red; */
+        }
+
+        .grid-item {
+            float: left;
+            margin-bottom: 10px;
+        }
+
+        .grid-item img {
+            display: block;
+            width: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="container">
+        <div class="box">
+            <img src="https://picsum.photos/600/400" alt="Image 1">
+            <h2>Image 1</h2>
+        </div>
+        <div class="box">
+            <img src="https://picsum.photos/601/600" alt="Image 2">
+            <h2>Image 2</h2>
+        </div>
+        <div class="box">
+            <img src="https://picsum.photos/602/500" alt="Image 3">
+            <h2>Image 3</h2>
+        </div>
+        <div class="box">
+            <img src="https://picsum.photos/603/200" alt="Image 4">
+            <h2>Image 4</h2>
+        </div>
+        <div class="box">
+            <img src="https://picsum.photos/604/300" alt="Image 5">
+            <h2>Image 5</h2>
+        </div>
+        <div class="box">
+            <img src="https://picsum.photos/605/700" alt="Image 6">
+            <h2>Image 6</h2>
+        </div>
+        <div class="box">
+            <img src="https://picsum.photos/606/400" alt="Image 6">
+            <h2>Image 6</h2>
+        </div>
+        <div class="box">
+            <img src="https://picsum.photos/607/800" alt="Image 6">
+            <h2>Image 6</h2>
+        </div>
+    </div> -->
+
+    <div class="grid">
+        <div class="grid-item">
+            <img lazy="load" src="https://picsum.photos/460/400" alt="">
+        </div>
+        <div class="grid-item">
+            <img src="https://picsum.photos/460/800" alt="">
+        </div>
+        <div class="grid-item">
+            <img lazy="load" src="https://picsum.photos/460/300" alt="">
+        </div>
+        <div class="grid-item">
+            <img lazy="load" src="https://picsum.photos/460/100" alt="">
+        </div>
+        <div class="grid-item">
+            <img lazy="load" src="https://picsum.photos/460/500" alt="">
+        </div>
+        <div class="grid-item">
+            <img lazy="load" src="https://picsum.photos/460/200" alt="">
+        </div>
+        <div class="grid-item">
+            <img lazy="load" src="https://picsum.photos/460/700" alt="">
+        </div>
+        <div class="grid-item">
+            <img lazy="load" src="https://picsum.photos/460/400" alt="">
+        </div>
+        <div class="grid-item">
+            <img lazy="load" src="https://picsum.photos/460/300" alt="">
+        </div>
+        <div class="grid-item">
+            <img lazy="load" src="https://picsum.photos/460/600" alt="">
+        </div>
+        <div class="grid-item">
+            <img lazy="load" src="https://picsum.photos/460/200" alt="">
+        </div>
+        <div class="grid-item">
+            <img lazy="load" src="https://picsum.photos/460/800" alt="">
+        </div>
+        <div class="grid-item">
+            <img lazy="load" src="https://picsum.photos/460/500" alt="">
+        </div>
+    </div>
+    <script src="./index.js"></script>
+    <script src="./imgload.js"></script>
+
+    <script type="text/javascript">
+        var grid = document.querySelector('.grid')
+        imagesLoaded(grid, function (instance) {
+
+            console.log(6);
+            var msnry = new Masonry(grid, {
+                itemSelector: '.grid-item',
+                columnWidth: 460,
+                percentPosition: true,
+                horizontalOrder: true,
+                gutter: 10
+
+            });
+            grid.style.opacity = 1
+
+        });
+
+        // var msnry = new Masonry(grid, {
+        //     itemSelector: '.grid-item',
+        //     columnWidth: 460,
+        //     percentPosition: true,
+        //     horizontalOrder: true,
+        //     gutter: 10
+
+        // });
+
+        // var imgLoad = imagesLoaded(grid);
+
+        // imgLoad.on('progress', function (instance, image) {
+        //     msnry.layout();
+        // });
+    </script>
+</body>
+
+</html>

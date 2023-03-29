@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no, viewport-fit=cover">
+
+    <title>瀑布流</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            margin: 0 auto;
+            position: relative;
+
+            /* opacity: 0;
+            transition: all 0.3s ease-in; */
+        }
+
+        .item {
+            float: left;
+            /* display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 30px;
+            font-weight: 700;
+            color: aliceblue; */
+            /* width: 240px; */
+            position: absolute;
+            /* background-color: rebeccapurple; */
+            background-color: #E3E9ED;
+            border-radius: 12px;
+
+        }
+
+        @media(min-width:0px)and (max-width:320px) {
+            .item {
+                width: 150px;
+            }
+
+        }
+
+        @media(min-width:321px)and (max-width:375px) {
+            .item {
+                width: 170px;
+            }
+
+        }
+
+        @media(min-width:376px) and (max-width:550px) {
+            .item {
+                width: 180px;
+            }
+
+        }
+
+        @media(min-width:551px)and (max-width:650px) {
+            .item {
+                width: 200px;
+                /* background-color: aqua; */
+            }
+        }
+
+        @media(min-width:651px)and (max-width:900px) {
+            .item {
+                width: 210px;
+
+            }
+        }
+
+        @media(min-width:901px)and (max-width:1440px) {
+            .item {
+                width: 220px;
+            }
+        }
+
+        @media(min-width:1441px) {
+            .item {
+                width: 240px;
+
+            }
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            border-radius: 12px;
+            transition: all 0.2s ease-in;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="box">
+        <div class="item item-1" style="height:300px">
+            <img data-src="https://picsum.photos/id/1/240/300" alt="">
+        </div>
+        <div class="item item-2" style="height:200px">
+            <img data-src="https://picsum.photos/id/2/240/200" alt="">
+        </div>
+        <div class="item item-3" style="height:800px">
+            <img data-src="https://picsum.photos/id/10/240/800" alt="">
+        </div>
+        <div class="item item-4" style="height:600px">
+            <img data-src="https://picsum.photos/id/29/240/600" alt="">
+        </div>
+        <div class="item item-5" style="height:500px">
+            <img data-src="https://picsum.photos/id/28/240/500" alt="">
+        </div>
+        <div class="item item-6" style="height:700px">
+            <img data-src="https://picsum.photos/id/27/240/700" alt="">
+        </div>
+        <div class="item item-7" style="height:400px">
+            <img data-src="https://picsum.photos/id/5/240/400" alt="">
+        </div>
+        <div class="item item-8" style="height:100px">
+            <img data-src="https://picsum.photos/id/25/240/100" alt="">
+        </div>
+        <div class="item item-9" style="height:200px">
+            <img data-src="https://picsum.photos/id/26/240/200" alt="">
+        </div>
+        <div class="item item-10" style="height:300px">
+            <img data-src="https://picsum.photos/id/20/240/300" alt="">
+        </div>
+        <div class="item item-11" style="height:800px">
+            <img data-src="https://picsum.photos/id/19/240/800" alt="">
+        </div>
+        <div class="item item-12" style="height:100px">
+            <img data-src="https://picsum.photos/id/26/240/100" alt="">
+        </div>
+        <div class="item item-13" style="height:200px">
+            <img data-src="https://picsum.photos/id/30/240/200" alt="">
+        </div>
+        <div class="item item-14" style="height:300px">
+            <img data-src="https://picsum.photos/id/31/240/300" alt="">
+        </div>
+        <div class="item item-15" style="height:200px">
+            <img data-src="https://picsum.photos/id/32/240/200" alt="">
+        </div>
+        <div class="item item-16" style="height:100px">
+            <img data-src="https://picsum.photos/id/33/240/100" alt="">
+        </div>
+        <div class="item item-17" style="height:200px">
+            <img data-src="https://picsum.photos/id/34/240/200" alt="">
+        </div>
+        <div class="item item-18" style="height:500px">
+            <img data-src="https://picsum.photos/id/35/240/500" alt="">
+        </div>
+        <div class="item item-19" style="height:600px">
+            <img data-src="https://picsum.photos/id/36/240/600" alt="">
+        </div>
+        <div class="item item-20" style="height:700px">
+            <img data-src="https://picsum.photos/id/37/240/700" alt="">
+        </div>
+        <div class="item item-21" style="height:300px">
+            <img data-src="https://picsum.photos/id/38/240/200" alt="">
+        </div>
+        <div class="item item-22" style="height:100px">
+            <img data-src="https://picsum.photos/id/39/240/100" alt="">
+        </div>
+
+
+        <div class="item item-23" style="height:300px">
+            <img data-src="https://picsum.photos/id/40/240/300" alt="">
+        </div>
+        <div class="item item-24" style="height:600px">
+            <img data-src="https://picsum.photos/id/41/240/600" alt="">
+        </div>
+        <div class="item item-25" style="height:500px">
+            <img data-src="https://picsum.photos/id/42/240/500" alt="">
+        </div>
+        <div class="item item-26" style="height:100px">
+            <img data-src="https://picsum.photos/id/43/240/100" alt="">
+        </div>
+
+    </div>
+
+</body>
+<script>
+    const items = document.getElementsByClassName('item');
+    const box = document.querySelector('#box');
+    const body = document.querySelector('body');
+    const imgs = document.querySelectorAll('img');
+    const gap = 10;
+
+    function checkIfInView(el) {
+        const bound = el.getBoundingClientRect();
+        const clientHeight = window.innerHeight;
+        return bound.top <= clientHeight;
+    }
+
+    function loadImage(el) {
+        if (!el.src) {
+            const source = el.dataset.src;
+            el.src = source;
+            el.onload = () => {
+                el.style.opacity = 1;
+            };
+        }
+    }
+
+    function checkImagesInView() {
+        Array.from(imgs).forEach(function (el) {
+            if (checkIfInView(el)) {
+                loadImage(el);
+            }
+        });
+    }
+
+    function calculateColumns() {
+        const pageWidth = body.clientWidth;
+        const itemWidth = parseInt(getComputedStyle(items[0]).width);
+
+        return Math.floor(pageWidth / (itemWidth + gap));
+    }
+
+    function waterFall() {
+        const columns = calculateColumns();
+        const columnHeights = new Array(columns).fill(0);
+
+        Array.from(items).forEach((item, i) => {
+            const currentColumn = i % columns;
+            const currentColumnHeight = columnHeights[currentColumn];
+            const itemHeight = item.offsetHeight;
+            if (i < columns) {
+                item.style.top = 0;
+                item.style.left = `${(item.clientWidth + gap) * i}px`;
+                columnHeights[currentColumn] += itemHeight;
+            } else {
+                const shortestColumnIndex = columnHeights.indexOf(Math.min(...columnHeights));
+                const shortestColumnHeight = columnHeights[shortestColumnIndex];
+                const topOffset = shortestColumnHeight + gap;
+                item.style.top = `${topOffset}px`;
+                item.style.left = `${items[shortestColumnIndex].offsetLeft}px`;
+                columnHeights[shortestColumnIndex] += itemHeight + gap;
+            }
+        })
+
+        const maxColumnHeight = Math.max(...columnHeights);
+        const totalWidth = columns * (items[0].clientWidth + gap) - gap;
+        box.style.height = `${maxColumnHeight}px`;
+        box.style.width = `${totalWidth}px`;
+    }
+    waterFall();
+    window.onload = function () {
+        checkImagesInView();
+    };
+    window.onscroll = function () {
+        checkImagesInView();
+    };
+    window.onresize = function () {
+        waterFall();
+    };
+</script>
+
+</html>

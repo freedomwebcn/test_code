@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>图片懒加载</title>
+    <style>
+
+        img {
+            display: block;
+            width: 100%;
+            /* height: 300px; */
+            margin-bottom: 20px;
+            opacity: 0;
+            transition: all 0.2s ease-in;
+        }
+    </style>
+</head>
+
+<body>
+    <img data-src="https://is2-ssl.mzstatic.com/image/thumb/Features116/v4/f7/fd/ba/f7fdbaa5-e9e3-78a9-d35a-54643fdd38e8/68628105-9f14-4316-84ff-cce3bf36ef4a.png/592x592SC.DN01-60.jpg?l=en-US"
+        alt="">
+    <img data-src="https://is3-ssl.mzstatic.com/image/thumb/Features115/v4/38/fc/7d/38fc7d0a-5993-fc3a-eeab-cd605a447886/U0MtTVMtV1ctTW96YXJ0X19fTW9yZS1BREFNX0lEPTExMjc2MDQ2MDEucG5n.png/316x316SC.DN01.webp?l=zh-Hans"
+        alt="">
+    <img data-src="https://is5-ssl.mzstatic.com/image/thumb/Music112/v4/56/e0/9f/56e09fdc-92d4-8991-89c8-c502f1ed3b45/22UMGIM88095.rgb.jpg/316x316bb.webp"
+        alt="">
+    <img data-src="https://is2-ssl.mzstatic.com/image/thumb/Features125/v4/04/2b/b0/042bb0b7-66ce-9c22-93c6-8a6cfba55105/U0MtTVMtV1ctQnJvd25fU3VnYXItQURBTV9JRD0xMzc2OTk0NDg3LnBuZw.png/316x316SC.DN01.webp?l=en-US"
+        alt="">
+    <img data-src="https://is4-ssl.mzstatic.com/image/thumb/Features115/v4/f0/28/6d/f0286d5f-d91b-e9a0-aff5-e66d94370c43/U0MtTVMtV1ctVGhlX0EtTGlzdF9DYW50b3BvcC1BREFNX0lEPTEwMTA1ODE5NDAucG5n.png/316x316SC.DN01.webp?l=zh-Hans"
+        alt="">
+    <img data-src="https://is3-ssl.mzstatic.com/image/thumb/Features126/v4/81/9b/0d/819b0ddd-64af-81e4-b210-ecbe8d9922a2/3c3e2aa1-6bab-4494-92ae-f26f71c18350.png/316x316SC.DN01.webp?l=zh-Hans"
+        alt="">
+    <img data-src="https://is3-ssl.mzstatic.com/image/thumb/Features116/v4/30/cb/91/30cb91d9-b5bb-048a-4833-c7bb96ffd420/cc3b69b7-7b47-43ae-b957-9f3e936827b2.png/316x316SC.DN01.webp?l=en-US"
+        alt="">
+    <img data-src="https://is1-ssl.mzstatic.com/image/thumb/Features112/v4/17/a6/10/17a610ec-1031-4efb-bf51-9e17c2d29f95/54c7e222-2a98-4441-b8c9-d6f1fc99e415.png/316x316SC.DN01.webp?l=en-US"
+        alt="">
+    <img data-src="https://is5-ssl.mzstatic.com/image/thumb/Features126/v4/cc/9e/34/cc9e34ab-9b36-37a8-013d-c4e8e9eabc61/c5578c2e-c7e7-48fc-9607-49b8911bcd7f.png/316x316SC.DN01.webp?l=en-US"
+        alt="">
+    <img data-src="https://is2-ssl.mzstatic.com/image/thumb/Features126/v4/46/a3/16/46a316b3-8a7f-d755-6a5b-c1f5e95a6d7f/2d807c91-07c9-433d-90ae-69281a312be4.png/316x316SC.DN01.webp?l=en-US"
+        alt="">
+    <img data-src="https://is1-ssl.mzstatic.com/image/thumb/Features125/v4/1f/64/3a/1f643a63-cde8-d759-0a57-e6a130b50967/U0MtTVMtV1ctQm9vdHMmTW9jcy5wbmc.png/316x316SC.DN01.webp?l=en-US"
+        alt="">
+    <img data-src="https://is3-ssl.mzstatic.com/image/thumb/Music115/v4/32/72/68/327268ba-b9dd-b322-2a16-bdd0212df48c/074643865326.jpg/316x316bb.webp"
+        alt="">
+</body>
+<script>
+    var imgs = document.querySelectorAll('img');
+
+    //用来判断bound.top<=clientHeight的函数，返回一个bool值
+    function isIn(el) {
+        var bound = el.getBoundingClientRect();
+        var clientHeight = window.innerHeight;
+
+        console.log(bound,clientHeight);
+        return bound.top <= clientHeight;
+    }
+    //检查图片是否在可视区内，如果不在，则加载
+    function check() {
+        Array.from(imgs).forEach(function (el) {
+            if (isIn(el)) {
+                loadImg(el);
+            }
+        })
+    }
+
+    function loadImg(el) {
+        if (!el.src) {
+            var source = el.dataset.src;
+            el.src = source;
+            el.onload = function(){
+                el.style.opacity = 1
+            }
+
+        }
+    }
+    // //offsetTop是元素与offsetParent的距离，循环获取直到页面顶部
+    // function getTop(e) {
+    //     var T = e.offsetTop;
+    //     while(e = e.offsetParent) {
+    //         T += e.offsetTop;
+    //     }
+    //     return T;
+    // }
+
+    // function lazyLoad(imgs) {
+    //     var H = document.documentElement.clientHeight;//获取可视区域高度
+    //     var S = document.documentElement.scrollTop || document.body.scrollTop;
+    //     for (var i = 0; i < imgs.length; i++) {
+    //         if (H + S > getTop(imgs[i])) {
+    //             imgs[i].src = imgs[i].getAttribute('data-src');
+    //         }
+    //     }
+    // }
+
+    window.onload = window.onscroll = function () { //onscroll()在滚动条滚动的时候触发
+        check();
+    }
+</script>
+
+</html>

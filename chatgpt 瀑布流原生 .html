@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>图片瀑布流</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f2f2f2;
+        }
+
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .image-column {
+            flex-basis: calc(33.33% - 10px);
+            margin-right: 10px;
+        }
+
+        .image-column:last-child {
+            margin-right: 0;
+        }
+
+        .image-item {
+            margin-bottom: 10px;
+        }
+
+        .image-item img {
+            display: block;
+            width: 100%;
+            height: auto;
+            /* 修改此行 */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="image-container">
+        <div class="image-column"></div>
+        <div class="image-column"></div>
+        <div class="image-column"></div>
+    </div>
+
+    <script type="text/javascript">
+        var columns = document.querySelectorAll('.image-column');
+        var images = [
+            'https://picsum.photos/460/400',
+            'https://picsum.photos/460/800',
+            'https://picsum.photos/460/300',
+            'https://picsum.photos/460/100',
+            'https://picsum.photos/460/500',
+            'https://picsum.photos/460/200',
+            'https://picsum.photos/460/700',
+            'https://picsum.photos/460/400',
+            'https://picsum.photos/460/300',
+            'https://picsum.photos/460/600',
+            'https://picsum.photos/460/200',
+            'https://picsum.photos/460/800',
+            'https://picsum.photos/460/500',
+            'https://picsum.photos/460/50'
+        ];
+
+        window.onload = function () {
+            images.forEach(function (image) {
+                var column = getShortestColumn(columns);
+                var item = document.createElement('div');
+                item.className = 'image-item';
+                item.innerHTML = '<img src="' + image + '">';
+                column.appendChild(item);
+            });
+
+            function getShortestColumn(columns) {
+                var shortest = columns[0];
+
+                for (var i = 1; i < columns.length; i++) {
+                    if (columns[i].scrollHeight < shortest.scrollHeight ||
+                        shortest.scrollHeight === 0) {
+                        shortest = columns[i];
+                    }
+                }
+                return shortest;
+            }
+
+
+        }
+    </script>
+</body>
+
+</html>

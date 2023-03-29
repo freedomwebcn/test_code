@@ -100,7 +100,8 @@
             context.beginPath();
             context.arc(15 + i * 30, 15 + j * 30, 13, 0, 2 * Math.PI);
             context.closePath();
-            var gradient = context.createRadialGradient(15 + i * 30 + 2, 15 + j * 30 - 2, 13, 15 + i * 30 + 2, 15 + j * 30 - 2, 0);
+            var gradient = context.createRadialGradient(15 + i * 30 + 2, 15 + j * 30 - 2, 13, 15 + i * 30 + 2, 15 + j *
+                30 - 2, 0);
             if (me) {
                 gradient.addColorStop(0, "#0A0A0A");
                 gradient.addColorStop(1, "#636766");
@@ -139,7 +140,10 @@
                     // 如果游戏还没结束 
                     me = !me;
                     // 轮到对方下棋 
-                    computerAI();
+                    setTimeout(() => {
+                        computerAI();
+
+                    }, 1000)
                 }
             }
         }
