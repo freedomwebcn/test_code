@@ -6,6 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="https://at.alicdn.com/t/c/font_3915810_67igql93fl.css">
+
+  
+      <link rel="stylesheet" href="./css/index.css">
     <title>Document</title>
 </head>
 <style>
@@ -13,6 +16,16 @@
         height: 100vh;
         margin: 0;
         padding: 0;
+        font-family: -apple-system,
+        BlinkMacSystemFont,
+        PingFang SC,
+        Hiragino Sans GB,
+        HarmonyOS_Medium,
+        Arial,
+        Microsoft YaHei,
+        Helvetica Neue,
+        Helvetica,
+        sans-serif;
     }
 
     .audio-player {
@@ -267,10 +280,13 @@
         </div>
         <div class="track-list">
             <ul>
-                <li data-index="0">Service Bell</li>
+                <!-- <li data-index="0">Service Bell</li>
                 <li data-index="1">Meadowlark</li>
                 <li data-index="2">Hyena Laughing</li>
-                <li data-index="3">Creepy Background</li>
+                <li data-index="3">Creepy Background</li> -->
+                <li data-index="0">大城小爱</li>
+                <li data-index="1">我们的歌</li>
+                <li data-index="2">依然爱你</li>
             </ul>
         </div>
     </div>
@@ -313,31 +329,49 @@
                 document.getElementById("big-volume"),
             ],
         ]);
-        const musicPlaylist = [{
-                title: "Service Bell",
-                artist: "Daniel Simion",
-                url: "https://soundbible.com/mp3/service-bell_daniel_simion.mp3",
-                image: "https://source.unsplash.com/crs2vlkSe98/400x400",
-            },
-            {
-                title: "Meadowlark",
-                artist: "Daniel Simion",
-                url: "https://soundbible.com/mp3/meadowlark_daniel-simion.mp3",
-                image: "https://source.unsplash.com/35bE_njbG9E/400x400",
-            },
-            {
-                title: "Hyena Laughing",
-                artist: "Daniel Simion",
-                url: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
-                image: "https://source.unsplash.com/Esax9RaEl2I/400x400",
-            },
-            {
-                title: "Creepy Background",
-                artist: "Daniel Simion",
-                url: "http://soundbible.com/mp3/creepy-background-daniel_simon.mp3",
-                image: "https://source.unsplash.com/j0g8taxHZa0/400x400",
-            },
-        ];
+
+         const musicPlaylist = [
+                {
+                    title: "大城小爱",
+                    artist: "王力宏",
+                    url: "./王力宏 - 大城小爱.flac",
+                },
+                {
+                    title: "我们的歌",
+                    artist: "王力宏",
+                    url: "./王力宏 - 我们的歌.flac",
+                },
+                {
+                    title: "依然爱你",
+                    artist: "王力宏",
+                    url: "./王力宏 - 依然爱你.flac",
+                }
+            ]
+        // const musicPlaylist = [{
+        //         title: "Service Bell",
+        //         artist: "Daniel Simion",
+        //         url: "https://soundbible.com/mp3/service-bell_daniel_simion.mp3",
+        //         image: "https://source.unsplash.com/crs2vlkSe98/400x400",
+        //     },
+        //     {
+        //         title: "Meadowlark",
+        //         artist: "Daniel Simion",
+        //         url: "https://soundbible.com/mp3/meadowlark_daniel-simion.mp3",
+        //         image: "https://source.unsplash.com/35bE_njbG9E/400x400",
+        //     },
+        //     {
+        //         title: "Hyena Laughing",
+        //         artist: "Daniel Simion",
+        //         url: "https://soundbible.com/mp3/hyena-laugh_daniel-simion.mp3",
+        //         image: "https://source.unsplash.com/Esax9RaEl2I/400x400",
+        //     },
+        //     {
+        //         title: "Creepy Background",
+        //         artist: "Daniel Simion",
+        //         url: "http://soundbible.com/mp3/creepy-background-daniel_simon.mp3",
+        //         image: "https://source.unsplash.com/j0g8taxHZa0/400x400",
+        //     },
+        // ];
 
         let currentPlayIndex = 0;
 
@@ -367,6 +401,8 @@
             audio.addEventListener("progress", updateBufferedProgress);
             audio.addEventListener("timeupdate", updatePlayProgress);
             audio.addEventListener("loadedmetadata", onLoadedmetadata)
+            audio.addEventListener("ended", onEnded)
+
         }
 
         let duration = "00:00";
@@ -375,6 +411,11 @@
             duration = formatSongsTime(audio.duration);
             updateMusicTime();
         };
+        // 媒体文件播放结束或者没有更多可用的数据而停止时被触发
+        function onEnded(){
+            console.log( "达到了媒体的未尾");
+            nextPlay()
+        }
 
         //更新音乐时间
         function updateMusicTime() {

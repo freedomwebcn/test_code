@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lyrics Player</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .lyrics-content {
+            height: 300px;
+            overflow-y: scroll;
+            padding: 0 10px;
+            line-height: 2;
+        }
+
+        .lyrics-content ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .lyrics-content ul li {
+            /* height: 85px; */
+            color: #777;
+            font-size: 14px;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .lyrics-content ul li.active {
+            color: #f00;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <audio src="./陈百强 - 偏偏喜欢你.flac"></audio>
+    <div class="lyrics-content">
+        <ul>
+
+        </ul>
+
+    </div>
+
+    <button id="play_btn">Play</button>
+    <button id="Pause_btn">Pause</button>
+
+    <script>
+        const audio = document.querySelector('audio');
+        const lyricsContent = document.querySelector('.lyrics-content');
+        const playBtn = document.querySelector('#play_btn');
+        const pauseBtn = document.querySelector('#Pause_btn');
+
+        const lyricContainer = document.querySelector('ul');
+        let lyricItems;
+        let lyricIndex = 0;
+
+
+
+        let lrc = `
+        [00:00.000] 作词 : 郑国江\\n
+        [00:01.000] 作曲 : 陈百强\\n
+        [00:02.000] 编曲 : 周启生\\n
+        [00:03.000]\\n
+        [00:14.263]愁绪挥不去 苦闷散不去\\n
+        [00:20.362]为何我心一片空虚\\n
+        [00:26.453]感情已失去 一切都失去\\n
+        [00:32.473]满腔恨愁不可消除\\n
+        [00:38.517]为何你的嘴里总是那一句\\n
+        [00:44.564]为何我的心不会死\\n
+        [00:50.208]明白到爱失去 一切都不对\\n
+        [00:56.640]我又为何偏偏喜欢你\\n
+        [01:02.667]爱已是负累 相爱似受罪\\n
+        [01:09.043]心底如今满苦泪\\n
+        [01:14.783]旧日情如醉 此际怕再追\\n
+        [01:21.562]偏偏痴心想见你\\n
+        [01:26.879]为何我心分秒想着过去\\n
+        [01:32.874]为何你一点都不记起\\n
+        [01:38.508]情义已失去 恩爱都失去\\n
+        [01:44.928]我却为何偏偏喜欢你\\n
+        [01:51.034]\\n
+        [02:15.087]爱已是负累 相爱似受罪\\n
+        [02:21.509]心底如今满苦泪\\n
+        [02:27.189]旧日情如醉 此际怕再追\\n
+        [02:33.970]偏偏痴心想见你\\n
+        [02:39.270]为何我心分秒想着过去\\n
+        [02:45.321]为何你一点都不记起\\n
+        [02:50.953]情义已失去 恩爱都失去\\n
+        [02:57.405]我却为何偏偏喜欢你\\n
+        [03:03.089]情义已失去 恩爱都失去\\n
+        [03:09.522]我却为何偏偏喜欢你\\n
+
+        
+        
+        `
+        // 解析歌词信息
+        function parseLyric(lyric) {
+            const lines = lyric.split('\n');
+            const result = [];
+            const timeExp = /\[(\d{2}):(\d{2})\.(\d{3})\]/;
+            for (let line of lines) {
+                const matches = timeExp.exec(line);
+                if (!matches) continue;
+                const minutes = parseInt(matches[1]);
+                const seconds = parseInt(matches[2]);
+                const milliseconds = parseInt(matches[3]);
+                const time = minutes * 60 + seconds + milliseconds / 1000;
+                const text = line.replace(timeExp, '').trim();
+                result.push({
+                    time,
+                    text
+                });
+            }
+            return result;
+        }
+
+        // 获取当前播放时间对应的歌词
+        function getCurrentLyric(time) {
+            while (lyricIndex < lyricItems.length - 1) {
+                if (time >= lyricItems[lyricIndex].dataset.time && time < lyricItems[lyricIndex + 1].dataset.time) {
+                    return lyricItems[lyricIndex];
+                }
+                lyricIndex++;
+            }
+            return lyricIndex === lyricItems.length - 1 ? lyricItems[lyricIndex] : null;
+        }
+
+
+
+        let y = 0;
+        // 滚动至当前歌词
+        function scrollLyric(lyric) {
+            if (!lyric) return;
+            const rect = lyric.getBoundingClientRect();
+            console.log(rect.top, lyric);
+            if (rect.top > 140) {
+                y += 28
+                lyricContainer.style.transform = `translateY(-${y}px)`
+            }
+
+        }
+
+        audio.volume = 0.01;
+
+
+
+        //加载歌词并开始播放音乐
+        const lyricData = parseLyric(lrc);
+        for (let lyric of lyricData) {
+            const item = document.createElement('li');
+            item.dataset.time = lyric.time;
+            item.innerText = lyric.text;
+            lyricContainer.appendChild(item);
+        }
+        lyricItems = lyricContainer.querySelectorAll('li');
+
+        playBtn.addEventListener('click', function () {
+            audio.play();
+        })
+
+        pauseBtn.addEventListener('click', function () {
+            audio.pause();
+        })
+
+
+        // 播放器播放事件
+        audio.addEventListener('timeupdate', () => {
+            const currentLyric = getCurrentLyric(audio.currentTime);
+            if (currentLyric) {
+                scrollLyric(currentLyric);
+                const activeLyric = lyricContainer.querySelector('.active');
+                activeLyric && activeLyric.classList.remove('active');
+                currentLyric.classList.add('active');
+            }
+        });
+    </script>
+</body>
+
+</html>
