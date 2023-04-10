@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    html,
+    body {
+        height: 100vh;
+        width: 100%;
+        overflow-x: hidden;
+
+    }
+
+    .outer-box {
+        height: 100%;
+
+    }
+
+    .inner-box {
+        height: 2000px;
+        width: 100%;
+    }
+
+    textarea {
+        width: 4rem;
+        height: 8rem;
+        font-size: 3rem;
+    }
+</style>
+
+<body>
+    <div class="outer-box">
+        <div class="inner-box"></div>
+    </div>
+    <!-- <textarea>1 2 3 4 5 6 7 8 9</textarea>
+    <p id="log"></p> -->
+    <script>
+        window.onload = function () {
+            document.querySelector('.outer-box').onscroll = function (e) {
+                console.log(e.target.scrollTop);
+
+            }
+
+
+            // const textarea = document.querySelector('textarea');
+            // const log = document.getElementById('log');
+
+            // textarea.onscroll = logScroll;
+
+            // function logScroll(e) {
+            //     log.textContent = `Scroll position: ${e.target.scrollTop}`;
+            // }
+
+
+
+        }
+
+
+
+
+    </script>
+</body>
+
+</html>
