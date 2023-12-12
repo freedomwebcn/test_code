@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-12-12T03:45:02.722Z" agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36" etag="tRaNqMSqxnlmOvaGy25h" version="22.1.7" type="github">
+<mxfile host="app.diagrams.net" modified="2023-12-12T04:40:05.214Z" agent="Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/102.0.0.0 Safari/537.36" etag="piAGmpas0X9xfCp0-Gqh" version="22.1.7" type="github">
   <diagram name="第 1 页" id="ibf2PCoqaVutC7yzK83v">
     <mxGraphModel dx="1434" dy="774" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="1" shadow="0">
       <root>
@@ -28,7 +28,7 @@
         <mxCell id="MtduzZIu6qgq0mqLRXFH-63" value="&lt;b&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;15&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="MtduzZIu6qgq0mqLRXFH-38" vertex="1">
           <mxGeometry x="399.7" y="390" width="40" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="MtduzZIu6qgq0mqLRXFH-64" value="&lt;b&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;问：机械厂这个月实际生产零件15个，比原计划多做了3分之2，原计划生产零件多少个？&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="MtduzZIu6qgq0mqLRXFH-38" vertex="1">
+        <mxCell id="MtduzZIu6qgq0mqLRXFH-64" value="&lt;b&gt;&lt;font color=&quot;#ff8000&quot; style=&quot;font-size: 18px;&quot;&gt;问：机械厂这个月实际生产零件15个，比原计划多做了3分之2，原计划生产零件多少个？&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="MtduzZIu6qgq0mqLRXFH-38" vertex="1">
           <mxGeometry x="70" y="90" width="730" height="40" as="geometry" />
         </mxCell>
         <mxCell id="MtduzZIu6qgq0mqLRXFH-65" value="&lt;b&gt;&lt;font style=&quot;font-size: 16px;&quot;&gt;原计划：&lt;/font&gt;&lt;/b&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="MtduzZIu6qgq0mqLRXFH-38" vertex="1">
@@ -46,8 +46,8 @@
         <mxCell id="2jRnW_7S6aJnEa8HrIu5-8" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b style=&quot;&quot;&gt;&lt;font style=&quot;font-size: 18px;&quot;&gt;计算过程:&lt;/font&gt;&lt;/b&gt;&lt;span style=&quot;&quot;&gt; $$ 15 \div \left ( 1 + \frac{2}{3} \right ) = 9 $$&lt;/span&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="MtduzZIu6qgq0mqLRXFH-38">
           <mxGeometry x="86" y="465" width="460" height="40" as="geometry" />
         </mxCell>
-        <mxCell id="2jRnW_7S6aJnEa8HrIu5-11" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;把题目转换成，机械厂原计划生产9个，实际比原计划多做了3分之2，实际做了多少个？&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="MtduzZIu6qgq0mqLRXFH-38">
-          <mxGeometry x="30" y="555" width="640" height="30" as="geometry" />
+        <mxCell id="2jRnW_7S6aJnEa8HrIu5-11" value="&lt;font color=&quot;#ff8000&quot; size=&quot;1&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 18px;&quot;&gt;把题目转换成，机械厂原计划生产9个，实际比原计划多做了3分之2，实际做了多少个？&lt;/b&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="MtduzZIu6qgq0mqLRXFH-38">
+          <mxGeometry x="70" y="545" width="720" height="40" as="geometry" />
         </mxCell>
         <mxCell id="2jRnW_7S6aJnEa8HrIu5-12" value="&lt;font style=&quot;font-size: 18px;&quot;&gt;&lt;b style=&quot;border-color: var(--border-color);&quot;&gt;&lt;font style=&quot;border-color: var(--border-color); font-size: 18px;&quot;&gt;计算过程:&lt;/font&gt;&lt;/b&gt;&amp;nbsp;$$ 9&amp;nbsp; \times \left ( 1 + \frac{2}{3} \right ) = 15 $$&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="MtduzZIu6qgq0mqLRXFH-38">
           <mxGeometry x="76" y="645" width="480" height="40" as="geometry" />
